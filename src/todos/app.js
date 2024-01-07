@@ -4,6 +4,7 @@ import html from './app.html?raw';    // el ?raw es para indicar que necesito im
 /**
  * 
  * @param {String} elementId 
+ * @returns Retorna el html 
  */
 export const App = ( elementId ) => {
 
