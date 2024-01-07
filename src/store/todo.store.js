@@ -29,12 +29,34 @@ const loadStore = () => {
   throw new Error('Not implemented');
 }
 
+const getTodos = ( filter = Filters.All ) => {
+
+  switch ( filter ) {
+    case Filters.All: 
+      return [...state.todos];
+    
+    case Filters.Completed:
+      return state.todos.filter( todo => todo.done );     // si todo.doen esta en true lo va a retornar
+    
+    case Filters.Pending:
+      return state.todos.filter( todo => !todo.done );
+    
+    default:
+      throw new Error(`Option ${ filter } is not valid.`);
+  }
+
+}
+
+
 /**
  * Agregar un nuevo Todo 
  * @param {String} description 
  */
 const addTodo = ( description ) => {
-  throw new Error('Not implemented');
+
+  if ( !description ) throw new Error('Description is required');
+  state.todos.push( new Todo(description) );
+
 }
 
 /**
@@ -50,29 +72,29 @@ const toggleTodo = ( todoId ) => {
  * @param {String} todoId 
  */
 const deleteTodo = ( todoId ) => {
-  throw new Error('Not implemented');
+  state.todos = state.todos.filter( todo => todo.id !== todoId );   // crea un nuevo arreglo de todos sin tener en cuenta al todoId
 }
 
 /**
  * Para eliminar los Todo completados
  */
 const deletedCompleted = () => {
-  throw new Error('NOt implemented');
+  state.todos = state.todos.filter( todo => todo.done );   // crea un nuevo arreglo de todos, sin tener en cuenta los todo.done === true
 }
 
 /**
  * Para seleccionar un filtro
- * @param {Object} newFilter 
+ * @param {Filters} newFilter 
  */
 const setFilter = ( newFilter = Filters.All ) => {
-  throw new Error('NOt implemented');  
+  state.filter = newFilter;  
 }
 
 /**
  * Para saber cual es el filtro seleccionado
  */
 const getCurrentFilter = () => {
-  throw new Error('NOt implemented');
+  return state.filter;
 }
 
 
@@ -82,6 +104,7 @@ export default {
   deletedCompleted,
   deleteTodo,
   getCurrentFilter,
+  getTodos,
   initStore,
   loadStore,
   setFilter,
