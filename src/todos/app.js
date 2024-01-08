@@ -36,22 +36,32 @@ export const App = ( elementId ) => {
   const newDescriptionInput = document.querySelector( ElementIDs.NewTodoInput );
   const todoListUL          = document.querySelector( ElementIDs.TodoList );
 
-  // Listeners     - cuando preciona y suelta la tecla
-  newDescriptionInput.addEventListener('keyup', (event) => {
+  // Listeners 
+  // agrega una nueva tarea 
+  newDescriptionInput.addEventListener('keyup', (event) => {    // cuando preciona y suelta la tecla
     if ( event.keyCode !== 13 ) return;
-    if ( event.target.value.trim().length === 0 ) return;
+    if ( event.target.value.trim().length === 0 ) return;       // borra los espacios al principio y al final
 
     todoStore.addTodo( event.target.value );
     displayTodos();
     event.target.value = '';
   });
 
+  // marcar finalizada una tarea
   todoListUL.addEventListener( 'click', ( event ) => {
     const element = event.target.closest('[data-id]');   // busca en el elemento padre la clase data-id  
     todoStore.toggleTodo( element.getAttribute('data-id') );
     displayTodos();
   });
 
+  // borrar una tarea
+  todoListUL.addEventListener( 'click', ( event ) => {
+    const isDistroyElement = event.target.className === 'destroy';
+    const element = event.target.closest('[data-id]');
+    if ( !element || !isDistroyElement ) return;
 
+    todoStore.deleteTodo( element.getAttribute('data-id') );
+    displayTodos();
+  });
 }
 
