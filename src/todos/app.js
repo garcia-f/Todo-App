@@ -34,6 +34,7 @@ export const App = ( elementId ) => {
 
   // Referencias HTML
   const newDescriptionInput = document.querySelector( ElementIDs.NewTodoInput );
+  const todoListUL          = document.querySelector( ElementIDs.TodoList );
 
   // Listeners     - cuando preciona y suelta la tecla
   newDescriptionInput.addEventListener('keyup', (event) => {
@@ -44,6 +45,13 @@ export const App = ( elementId ) => {
     displayTodos();
     event.target.value = '';
   });
+
+  todoListUL.addEventListener( 'click', ( event ) => {
+    const element = event.target.closest('[data-id]');   // busca en el elemento padre la clase data-id  
+    todoStore.toggleTodo( element.getAttribute('data-id') );
+    displayTodos();
+  });
+
 
 }
 
