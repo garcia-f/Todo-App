@@ -2,7 +2,7 @@ import { Todo } from "../todos/models/todo.models.js";
 
 
 
-const Filters = {
+export const Filters = {
   All: 'all',
   Completed: 'Completed',
   Pending: 'Pending',
