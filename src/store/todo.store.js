@@ -97,9 +97,9 @@ const deleteTodo = ( todoId ) => {
 
 /**
  * Para eliminar los Todo completados
- */
+ */ 
 const deletedCompleted = () => {
-  state.todos = state.todos.filter( todo => todo.done );   // crea un nuevo arreglo de todos, sin tener en cuenta los todo.done === true
+  state.todos = state.todos.filter( todo => !todo.done );   // crea un nuevo arreglo de todos, sin tener en cuenta los todo.done === true
   saveStateToLocalStorage();
 }
 

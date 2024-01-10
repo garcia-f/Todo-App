@@ -6,6 +6,7 @@ import { renderTodos } from './use-cases/render-todos.js';
 const ElementIDs = {
   TodoList:     '.todo-list',
   NewTodoInput: '#new-todo-input',
+  ClearCompletedButton : '.clear-completed',
 }
 
 
@@ -33,8 +34,9 @@ export const App = ( elementId ) => {
   })()
 
   // Referencias HTML
-  const newDescriptionInput = document.querySelector( ElementIDs.NewTodoInput );
-  const todoListUL          = document.querySelector( ElementIDs.TodoList );
+  const newDescriptionInput  = document.querySelector( ElementIDs.NewTodoInput );
+  const todoListUL           = document.querySelector( ElementIDs.TodoList );
+  const clearCompletedButton = document.querySelector( ElementIDs.ClearCompletedButton );
 
   // Listeners 
   // agrega una nueva tarea 
@@ -63,5 +65,14 @@ export const App = ( elementId ) => {
     todoStore.deleteTodo( element.getAttribute('data-id') );
     displayTodos();
   });
+
+  // borrar todas las tareas completadas
+  clearCompletedButton.addEventListener( 'click', () => {
+    // const element = event.target.className === 'clear-completed';
+    // if ( !element ) return;
+    todoStore.deletedCompleted();
+    displayTodos();
+  });
+
 }
 
